@@ -5,6 +5,9 @@ These are notable changes in edx-platform.  This is a rolling list of changes,
 in roughly chronological order, most recent first.  Add your entries at or near
 the top.  Include a label indicating the component affected.
 
+CMS: Add feature to allow exporting a course to a git repository by
+specifying the giturl in the course settings.
+
 Common: Add feature flags to allow developer use of pure XBlocks
   - ALLOW_ALL_ADVANCED_COMPONENTS disables the hard-coded list of advanced
     components in Studio, and allows any xblock to be added as an
