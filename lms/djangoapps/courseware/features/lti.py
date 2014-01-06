@@ -6,7 +6,9 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from lettuce import world, step
 from lettuce.django import django_url
+from nose.tools import assert_equals
 from common import course_id, visit_scenario_item
+
 
 from courseware.tests.factories import InstructorFactory
 
@@ -255,11 +257,23 @@ def click_grade(_step):
         iframe.find_by_name('submit-button').first.click()
         assert iframe.is_text_present('LTI consumer (edX) responded with XML content')
 
-@step('I switch to (*.)$')
+@step('I see in iframe that LTI role is (.*)$')
+def click_grade(_step, role):
+    location = world.scenario_dict['LTI'].location.html_id()
+    iframe_name = 'ltiFrame-' + location
+    with world.browser.get_iframe(iframe_name) as iframe:
+        assert iframe.is_text_present('Role: ' + role)
+
+@step('I switch to (.*)$')
 def switch_view(_step, view):
-    #TODO
-    link = world.browser.find_link_by_text(text)
-    assert len(link) > 0
+    staff_status = world.browser.find_by_id('staffstatus').first
+    if not staff_status.text == view:
+        staff_status.click()
+        switched_staff_status = world.retry_on_exception(lambda: world.browser.find_by_id('staffstatus'))
+        assert_equals(switched_staff_status.text, view)
+
+
+
 
 
 

@@ -56,12 +56,12 @@ Feature: LMS.LTI component
   And I see in the gradebook table that "Total" is "5"
 
   #7
-  Scenario: LTI component in LMS with user`s staff role is masqueraded as student
+  Scenario: Graded LTI component in LMS role's masquerading correctly works
   Given the course has correct LTI credentials
   And the course has an LTI component with correct fields:
-  | open_in_a_new_page |
-  | False              |
+  | open_in_a_new_page | has_score |
+  | False              | True      |
   And I view the LTI and it is rendered in iframe
-  And I see in iframe that role is Staff
+  And I see in iframe that LTI role is Instructor
   And I switch to Student view
-  Then I see in iframe that role is Student
+  Then I see in iframe that LTI role is Student
