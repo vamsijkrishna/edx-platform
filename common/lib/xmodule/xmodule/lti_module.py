@@ -57,7 +57,6 @@ from xblock.core import String, Scope, List, XBlock
 from xblock.fields import Boolean, Float
 
 
-
 log = logging.getLogger(__name__)
 
 
