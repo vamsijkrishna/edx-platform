@@ -44,6 +44,7 @@ lib_paths:
     - js/vendor/jquery.timeago.js
     - js/vendor/jquery.tagsinput.js
     - js/vendor/mustache.js
+    - js/vendor/mathjax-MathJax-c9db6ac/MathJax.js
     - coffee/src/ajax_prefix.js
     - js/test/add_ajax_prefix.js
     - coffee/src/jquery.immediateDescendents.js
