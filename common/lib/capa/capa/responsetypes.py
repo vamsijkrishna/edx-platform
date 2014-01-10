@@ -1,12 +1,12 @@
 #
 # File:   courseware/capa/responsetypes.py
 #
-'''
+"""
 Problem response evaluation.  Handles checking of student responses,
 of a variety of types.
 
 Used by capa_problem.py
-'''
+"""
 
 # standard library imports
 import abc
@@ -54,25 +54,25 @@ CORRECTMAP_PY = None
 
 
 class LoncapaProblemError(Exception):
-    '''
+    """
     Error in specification of a problem
-    '''
+    """
     pass
 
 
 class ResponseError(Exception):
-    '''
+    """
     Error for failure in processing a response, including
     exceptions that occur when executing a custom script.
-    '''
+    """
     pass
 
 
 class StudentInputError(Exception):
-    '''
+    """
     Error for an invalid student input.
     For example, submitting a string when the problem expects a number
-    '''
+    """
     pass
 
 #-----------------------------------------------------------------------------
@@ -127,7 +127,7 @@ class LoncapaResponse(object):
     required_attributes = []
 
     def __init__(self, xml, inputfields, context, system=None):
-        '''
+        """
         Init is passed the following arguments:
 
           - xml         : ElementTree of this Response
@@ -135,7 +135,7 @@ class LoncapaResponse(object):
           - context     : script processor context
           - system      : ModuleSystem instance which provides OS, rendering, and user context
 
-        '''
+        """
         self.xml = xml
         self.inputfields = inputfields
         self.context = context
@@ -143,6 +143,8 @@ class LoncapaResponse(object):
 
         self.id = xml.get('id')
 
+        # The LoncapaProblemError messages here do not need to be translated as they are
+        # only displayed to the user when settings.DEBUG is True
         for abox in inputfields:
             if abox.tag not in self.allowed_inputfields:
                 msg = "%s: cannot have input field %s" % (
@@ -191,20 +193,20 @@ class LoncapaResponse(object):
             self.setup_response()
 
     def get_max_score(self):
-        '''
+        """
         Return the total maximum points of all answer fields under this Response
-        '''
+        """
         return sum(self.maxpoints.values())
 
     def render_html(self, renderer, response_msg=''):
-        '''
+        """
         Return XHTML Element tree representation of this Response.
 
         Arguments:
 
           - renderer : procedure which produces HTML given an ElementTree
           - response_msg: a message displayed at the end of the Response
-        '''
+        """
         # render ourself as a <span> + our content
         tree = etree.Element('span')
 
@@ -226,12 +228,12 @@ class LoncapaResponse(object):
         return tree
 
     def evaluate_answers(self, student_answers, old_cmap):
-        '''
+        """
         Called by capa_problem.LoncapaProblem to evaluate student answers, and to
         generate hints (if any).
 
         Returns the new CorrectMap, with (correctness,msg,hint,hintmode) for each answer_id.
-        '''
+        """
         new_cmap = self.get_score(student_answers)
         self.get_hints(convert_files_to_filenames(
             student_answers), new_cmap, old_cmap)
@@ -239,14 +241,14 @@ class LoncapaResponse(object):
         return new_cmap
 
     def get_hints(self, student_answers, new_cmap, old_cmap):
-        '''
+        """
         Generate adaptive hints for this problem based on student answers, the old CorrectMap,
         and the new CorrectMap produced by get_score.
 
         Does not return anything.
 
         Modifies new_cmap, by adding hints to answer_id entries as appropriate.
-        '''
+        """
         hintgroup = self.xml.find('hintgroup')
         if hintgroup is None:
             return
@@ -343,24 +345,24 @@ class LoncapaResponse(object):
 
     @abc.abstractmethod
     def get_score(self, student_answers):
-        '''
+        """
         Return a CorrectMap for the answers expected vs given.  This includes
         (correctness, npoints, msg) for each answer_id.
 
         Arguments:
          - student_answers : dict of (answer_id, answer) where answer = student input (string)
-        '''
+        """
         pass
 
     @abc.abstractmethod
     def get_answers(self):
-        '''
+        """
         Return a dict of (answer_id, answer_text) for each answer for this question.
-        '''
+        """
         pass
 
     def check_hint_condition(self, hxml_set, student_answers):
-        '''
+        """
         Return a list of hints to show.
 
           - hxml_set        : list of Element trees, each specifying a condition to be
@@ -370,7 +372,7 @@ class LoncapaResponse(object):
 
         Returns a list of names of hint conditions which were satisfied.  Those are used
         to determine which hints are displayed.
-        '''
+        """
         pass
 
     def setup_response(self):
@@ -668,9 +670,9 @@ class ChoiceResponse(LoncapaResponse):
             'name') for choice in correct_xml])
 
     def assign_choice_names(self):
-        '''
+        """
         Initialize name attributes in <choice> tags for this response.
-        '''
+        """
 
         for index, choice in enumerate(self.xml.xpath('//*[@id=$id]//choice',
                                                       id=self.xml.get('id'))):
@@ -726,9 +728,9 @@ class MultipleChoiceResponse(LoncapaResponse):
             if contextualize_text(choice.get('correct'), self.context) == "true"]
 
     def mc_setup_response(self):
-        '''
+        """
         Initialize name attributes in <choice> stanzas in the <choicegroup> in this response.
-        '''
+        """
         i = 0
         for response in self.xml.xpath("choicegroup"):
             rtype = response.get('type')
@@ -743,9 +745,9 @@ class MultipleChoiceResponse(LoncapaResponse):
                     choice.set("name", "choice_" + choice.get("name"))
 
     def get_score(self, student_answers):
-        '''
+        """
         grade student response.
-        '''
+        """
         # log.debug('%s: student_answers=%s, correct_choices=%s' % (
         #   unicode(self), student_answers, self.correct_choices))
         if (self.answer_id in student_answers
@@ -786,9 +788,9 @@ class TrueFalseResponse(MultipleChoiceResponse):
 
 
 class OptionResponse(LoncapaResponse):
-    '''
+    """
     TODO: handle direction and randomize
-    '''
+    """
 
     response_tag = 'optionresponse'
     hint_tag = 'optionhint'
@@ -819,10 +821,10 @@ class OptionResponse(LoncapaResponse):
 
 
 class NumericalResponse(LoncapaResponse):
-    '''
+    """
     This response type expects a number or formulaic expression that evaluates
     to a number (e.g. `4+5/2^2`), and accepts with a tolerance.
-    '''
+    """
 
     response_tag = 'numericalresponse'
     hint_tag = 'numericalhint'
@@ -873,7 +875,7 @@ class NumericalResponse(LoncapaResponse):
         return correct_ans
 
     def get_score(self, student_answers):
-        '''Grade a numeric response '''
+        """Grade a numeric response """
         student_answer = student_answers[self.answer_id]
 
         correct_float = self.get_staff_ans()
@@ -946,7 +948,7 @@ class NumericalResponse(LoncapaResponse):
 
 
 class StringResponse(LoncapaResponse):
-    '''
+    """
     This response type allows one or more answers. Use `_or_` separator to set
     more than 1 answer.
 
@@ -962,7 +964,7 @@ class StringResponse(LoncapaResponse):
           <textline size="20" />
         </stringresponse >
 
-    '''
+    """
     response_tag = 'stringresponse'
     hint_tag = 'stringhint'
     allowed_inputfields = ['textline']
@@ -976,7 +978,7 @@ class StringResponse(LoncapaResponse):
             for answer in self.xml.get('answer').split(self.SEPARATOR)]
 
     def get_score(self, student_answers):
-        '''Grade a string response '''
+        """Grade a string response """
         student_answer = student_answers[self.answer_id].strip()
         correct = self.check_string(self.correct_answer, student_answer)
         return CorrectMap(self.answer_id, 'correct' if correct else 'incorrect')
@@ -1007,10 +1009,10 @@ class StringResponse(LoncapaResponse):
 
 
 class CustomResponse(LoncapaResponse):
-    '''
+    """
     Custom response.  The python code to be run should be in <answer>...</answer>
     or in a <script>...</script>
-    '''
+    """
 
     response_tag = 'customresponse'
 
@@ -1091,10 +1093,10 @@ class CustomResponse(LoncapaResponse):
                     self.code = answer.text
 
     def get_score(self, student_answers):
-        '''
+        """
         student_answers is a dict with everything from request.POST, but with the first part
         of each key removed (the string before the first "_").
-        '''
+        """
 
         log.debug('%s: student_answers=%s', unicode(self), student_answers)
 
@@ -1300,7 +1302,7 @@ class CustomResponse(LoncapaResponse):
             return ""
 
     def get_answers(self):
-        '''
+        """
         Give correct answer expected for this response.
 
         use default_answer_map from entry elements (eg textline),
@@ -1308,7 +1310,7 @@ class CustomResponse(LoncapaResponse):
 
         but for simplicity, if an "expect" attribute was given by the content author
         ie <customresponse expect="foo" ...> then that.
-        '''
+        """
         if len(self.answer_ids) > 1:
             return self.default_answer_map
         if self.expect:
@@ -1316,12 +1318,12 @@ class CustomResponse(LoncapaResponse):
         return self.default_answer_map
 
     def _handle_exec_exception(self, err):
-        '''
+        """
         Handle an exception raised during the execution of
         custom Python code.
 
         Raises a ResponseError
-        '''
+        """
 
         # Log the error if we are debugging
         msg = 'Error occurred while evaluating CustomResponse'
@@ -1408,11 +1410,11 @@ class CodeResponse(LoncapaResponse):
     queue_name = None
 
     def setup_response(self):
-        '''
+        """
         Configure CodeResponse from XML. Supports both CodeResponse and ExternalResponse XML
 
         TODO: Determines whether in synchronous or asynchronous (queued) mode
-        '''
+        """
         xml = self.xml
         # TODO: XML can override external resource (grader/queue) URL
         self.url = xml.get('url', None)
@@ -1432,12 +1434,12 @@ class CodeResponse(LoncapaResponse):
         self._parse_coderesponse_xml(codeparam)
 
     def _parse_coderesponse_xml(self, codeparam):
-        '''
+        """
         Parse the new CodeResponse XML format. When successful, sets:
             self.initial_display
             self.answer (an answer to display to the student in the LMS)
             self.payload
-        '''
+        """
         # Note that CodeResponse is agnostic to the specific contents of
         # grader_payload
         grader_payload = codeparam.find('grader_payload')
