@@ -5,19 +5,16 @@
 Working with HTML Components
 #############################
 
-*******************
-Overview
-*******************
+***********************
+HTML Component Overview
+***********************
 
 You use HTML components to add and format text, links, images, and more in your course. By default, Studio has four HTML component templates. 
 
-* :ref: `Text Template`: The most commonly used HTML component. COMPLETELY BLANK - NO PLACEHOLDER TEXT
+* :ref: `Text Template`: The most commonly used HTML component. When you select this template, a blank HTML component opens in the component editor.
 * :ref: `Announcement Template`: A template that contains placeholder text and formatting that helps you create an announcement for your course.
 * :ref: `Anonymous User ID Template`: 
 * :ref: `Zooming Image Template`
-
-
-**Can do the same things with all these templates because the component is just an HTML editor.**
 
 See the following topics:
 
@@ -32,48 +29,44 @@ See the following topics:
 
 .. note:: Review :ref:`Best Practices for HTML Markup` before adding HTML components to your course.
 
-
-
-
-
-
 .. _The User Interface:
 
 *****************************************
 The HTML Component User Interface
 *****************************************
 
-The HTML component editor has two views: **Visual view** and **HTML view.** By default, every HTML component opens in Visual view. To switch between Visual view and HTML view, click the  tab in the upper-right corner of the component editor.
+When you create a new HTML component, you work with the HTML component editor. The editor has two views: **Visual view** and **HTML view.** To switch between Visual view and HTML view, click the tab in the upper-right corner of the component editor.  
 
 .. image:: Images/HTMLEditorTabs.gif
 
-==============
-Visual View
-==============
+- **Visual view** provides a “what you see is what you get” (WYSIWYG) editor that allows you to format text by clicking the formatting buttons at the top of the editor. By default, every HTML component opens in Visual view.
 
-:ref: :ref: :ref: :ref: :ref:
+  Visual view includes the following formatting buttons.
 
-START HERE
+  .. image:: Images/HTML_VisualView_Toolbar.gif
 
-The Visual view provides a “what you see is what you get” (WYSIWYG) editor for
-editing a pre-formatted version of the text. 
+  #. Select a formatting style, such as heading 1, heading 2, or paragraph.
+  #. Format text in bold.
+  #. Format text in italics.
+  #. Underline text.
+  #. Create a bulleted list.
+  #. Create a numbered list.
+  #. Decrease the indent.
+  #. Indent text.
+  #. Format text as a blockquote.
+  #. Format text as code (i.e., in Courier font).
+  #. Create a link.
+  #. Delete the current link.
 
-.. image:: Images/HTMLEditor_Visual.gif
+  Visual view shows your content the way it will appear in the LMS. 
 
-Use the buttons at the top of the Visual editor to change the formatting as needed. 
-For example, you can enclose the title in heading tags, create bulleted or numbered lists, 
-or apply bold, italic, or underline formatting. 
+  .. image:: Images/HTMLComponent_VisualView_LMS.gif
 
-==============
-HTML view
-==============
-The HTML view allows you to edit HTML code directly.
+- **HTML view** allows you to edit HTML code directly.
 
-.. image:: Images/HTMLEditor_HTML.gif
+  .. image:: Images/HTML_HTMLView.gif
 
-.. note:: Studio processes the HTML code entered when saving it and before rendering
-  it. Make sure that the text you create looks the way you expect if
-  you go back and forth between the Visual and HTML views.
+  .. note:: If you're in HTML view, you can always switch to Visual view to make sure your content looks the way you expect. For example, we recommend that you do this if you add an image or a link to an HTML component.
 
 .. _Create an HTML Component:
 
@@ -81,45 +74,36 @@ The HTML view allows you to edit HTML code directly.
 Create an HTML Component
 *****************************
 
-To create a new HTML component in an existing unit, ensure the unit is private.  
-For more information on public and private units, see :ref:`Public and Private Units`.
+To create an HTML component:
 
-#. Under **Add New Component**, click the **html** icon.
+1. Under **Add New Component**, click **html**.
 
-  .. image:: Images/NewComponent_HTML.png
+  .. image:: Images/NewComponent_HTML.gif
 
 2. In the list that appears, click **Text**.
 
-   An empty component appears at the bottom of the Unit.
+   An empty component appears at the bottom of the unit.
    
-  .. image:: Images/HTMLComponent_Edit.png
+  .. image:: Images/HTMLComponent_Edit.gif
    
 3. In the empty component, click **Edit**.
    
-   The HTML Component Editor opens. 
+   The HTML component editor opens. 
   
-  .. image:: Images/HTMLEditor.png
+  .. image:: Images/HTMLEditor.gif
 
-4. Click **Settings** to enter the **Display Name** for the HTML component. 
+4. Enter the text and formatting that you want, either by using the formatting buttons in Visual view or by manually adding HTML tags in HTML view. 
 
-   A student sees the Display when hovering your mouse over the icon for the Unit in the Subsection accordian. 
+5. Give the HTML component a display name. The display name is the text that the student sees when he hovers his mouse over the course ribbon at the top of the page. To do this, click **Settings** in the upper-right corner of the component editor, and then enter text in the **Display Name** field. 
 
-   Click **Save** to return to the Component Editor. 
-
-5. Enter text as needed. 
+   To return to the text editor, click **Editor** in the upper-right corner. 
 
 6. Click **Save** to save the HTML component.
 
 For more information, see:
 
-* :ref:`Work with the Visual and HTML Editors`
 * :ref:`Add a Link in an HTML Component`
 * :ref:`Add an Image to an HTML Component`
-
-
-
-
-
 
 .. _Add a Link in an HTML Component:
 
@@ -127,31 +111,29 @@ For more information, see:
 Add a Link in an HTML Component
 ***********************************
 
+To add a link to a website, course unit, or file in an HTML component, you'll work with the **Insert/Edit Link** dialog box.
+
+.. image:: Images/HTML_Insert-EditLink.gif 
+
 .. _Add a Link to a Website:
 
 ============================
 Add a Link to a Website
 ============================
 
-.. _Add a Link to a File:
+To add a link to a website:
 
-============================
-Add a Link to a File
-============================
+#. Select the text that you want to make into the link.
 
-You can add a link in an HTML component to any file you uploaded for the course. 
+#. Click the link icon in the toolbar.
 
-Find any copy the URL of the file in the Files & Uploads page.
+#. In the **Insert/Edit Link** dialog box, enter the URL of the website that you want in the **Link URL** field.
 
-See :ref:`Add Files to a Course` for more information.
-
-While editing the HTML component:
-
-#. Switch to the HTML view.
-
-#. To create a link to a document, enter the following syntax, where URL OF FILE is the URL that you copied from the Files & Uploads Page and LINK TEXT is the text that the user will click. 
+#. If you want the link to open in a new window, click the drop-down arrow next to the **Target** field, and then select **Open Link in a New Window**. If not, you can leave the default value.
    
-   ``<p><a href="[URL OF FILE]">[LINK TEXT]</a></p>``
+#. Click **Insert**.
+
+#. Save the HTML component and test the link.
 
 
 .. _Add a Link to a Course Unit:
@@ -162,30 +144,66 @@ Add a Link to a Course Unit
 
 You can add a link to a course unit in an HTML component.
 
-#. Determine the unit identifier of the unit you're linking to. To do this, open the
-   unit page in Studio, and locate the **Unit Identifier** field under **Unit Location** in the right pane.
+1. Determine the unit identifier of the unit you're linking to. To do this, open the unit page in Studio, and locate the **Unit Identifier** field under **Unit Location** in the right pane.
 
-#. Copy the unit identifier.
+  .. image:: /Images/UnitIdentifier.gif
 
-#. Open the HTML component where you want to add the link.
+2. Copy the unit identifier.
 
-#. Select the text that you want to make into the link.
+3. Open the HTML component where you want to add the link.
 
-#. Click the link icon in the toolbar.
+4. Select the text that you want to make into the link.
 
-#. In the Insert/Edit Link dialog box, enter the following in the Link URL field.
-   
-   Make sure to replace <unit identifier>(including the brackets) with the unit
-   identifier that you copied in step 2, and make sure to include both forward slashes (/).
+5. Click the link icon in the toolbar.
+
+6. In the **Insert/Edit Link** dialog box, enter the following in the **Link URL** field.
    
    ``/jump_to_id/<unit identifier>``
 
-#. If you want the link to open in a new window, click the drop-down arrow next to
-   the Target field, and then select Open Link in a New Window. If not, you can leave the default value.
-   
-#. Click **Insert**.
+   Make sure to replace <unit identifier> (including the brackets) with the unit
+   identifier that you copied in step 2, and make sure to include both forward slashes (/).
 
-#. Save the HTML component and test the link.
+   .. image:: /Images/HTML_Insert-EditLink_CourseUnit.gif
+
+7. If you want the link to open in a new window, click the drop-down arrow next to
+   the **Target** field, and then select **Open Link in a New Window**. If not, you can leave the default value.
+   
+8. Click **Insert**.
+
+9. Save the HTML component and test the link.
+
+.. _Add a Link to a File:
+
+============================
+Add a Link to a File
+============================
+
+You can add a link in an HTML component to any file you've uploaded for the course. 
+
+1. On the **Files & Uploads** page, copy the URL of the file.
+
+   .. image:: Images/HTML_Link_File.gif
+
+   For more information, see :ref:`Add Files to a Course`.
+
+2. Select the text that you want to make into the link.
+
+3. Click the link icon in the toolbar.
+
+4. In the **Insert/Edit Link** dialog box, enter the following in the **Link URL** field.
+   
+   ``/static/FileName.type``
+
+   Make sure to include both forward slashes (/).
+
+   .. image:: /Images/HTML_Insert-EditLink_File.gif
+
+5. If you want the link to open in a new window, click the drop-down arrow next to
+   the **Target** field, and then select **Open Link in a New Window**. If not, you can leave the default value.
+   
+6. Click **Insert**.
+
+7. Save the HTML component and test the link.
 
 
 .. _Add an Image to an HTML Component:
@@ -196,7 +214,7 @@ Add an Image to an HTML Component
 
 You can add an any image that you have uploaded for the course to an HTML component. 
 
-Find any copy the URL of the image in the Files & Uploads page.
+Find any copy the URL of the image in the **Files & Uploads** page.
 
 See :ref:`Add Files to a Course` for more information.
 
@@ -206,77 +224,8 @@ While editing the HTML component:
 
 #. Switch to the HTML view.
 
-#. To add the image to a document, enter the following syntax, where URL OF FILE is the URL that you copied from the Files & Uploads Page. 
+#. To add the image to a document, enter the following syntax, where URL OF FILE is the URL that you copied from the **Files & Uploads** Page. 
    
    ``<p><img src="[URL OF FILE]"/></p>``
 
 
-.. _HTML Templates:
-
-**************
-HTML Templates
-**************
-
-There are four kinds of HTML templates.
-
-.. _Text Template:
-
-=============================
-Text Template
-=============================
-
-Most common - will use most frequently
-
-NO PLACEHOLDER TEXT
-
-.. _Announcement Template:
-
-=============================
-Announcement Template
-=============================
-
-When you create a new HTML component, you can select to use a built-in Announcement template.
-
-When creating the new HTML component, select **Announcement**.
-
-.. image:: Images/HTML_Component_Type.png
- :width: 600
- 
-The following screen opens.
-
-.. image:: Images/image073.png
-
-Edit the content of the announcement just as you would any HTML component.
-
-
-.. _Use the Anonymous User ID Template:
-
-============================
-Anonymous User ID Template
-============================
-
-When you create a new HTML component, you can select to use a built-in Anonymous User ID template.
-
-The Anonymous User ID template contains HTML set up for you to use a Qualtrics survey in your course.
-
-When creating the new HTML component, select **Anonymous User ID**.
-
-.. image:: Images/HTML_Component_Type.png
- :width: 600
-
-Edit the content just as you would any HTML component.
-
-To use your survey, you must edit the link in the template to include your university and survey ID.  
-
-You can also embed the survey in an iframe in the HTML component.
-
-For more details, read the instructions in the HTML view of the component. 
-
-
-.. _Zooming Image Template:
-
-============================
-Zooming Image Template
-============================
-
-:ref: `Zooming Image`
