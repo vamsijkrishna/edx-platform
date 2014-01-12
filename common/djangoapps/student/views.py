@@ -36,9 +36,6 @@ from django.contrib.admin.views.decorators import staff_member_required
 from ratelimitbackend.exceptions import RateLimitException
 
 from edxmako.shortcuts import render_to_response, render_to_string
-from edxmako.template import Template
-from mako.runtime import Context
-from StringIO import StringIO
 
 from course_modes.models import CourseMode
 from student.models import (
@@ -255,8 +252,10 @@ def signin_user(request):
     context = {
         'course_id': request.GET.get('course_id'),
         'enrollment_action': request.GET.get('enrollment_action'),
-        'platform_name': MicrositeConfiguration.get_microsite_configuration_value('platform_name', 
-            settings.PLATFORM_NAME),
+        'platform_name': MicrositeConfiguration.get_microsite_configuration_value(
+            'platform_name',
+            settings.PLATFORM_NAME
+        ),
     }
     return render_to_response('login.html', context)
 
@@ -276,8 +275,7 @@ def register_user(request, extra_context=None):
     context = {
         'course_id': request.GET.get('course_id'),
         'enrollment_action': request.GET.get('enrollment_action'),
-        'platform_name': MicrositeConfiguration.get_microsite_configuration_value('platform_name', 
-            settings.PLATFORM_NAME),
+        'platform_name': MicrositeConfiguration.get_microsite_configuration_value('platform_name',settings.PLATFORM_NAME),
     }
     if extra_context is not None:
         context.update(extra_context)
@@ -571,7 +569,7 @@ def accounts_login(request):
         course_id = _parse_course_id_from_string(redirect_to)
         if course_id and _get_course_enrollment_domain(course_id):
             return external_auth.views.course_specific_login(request, course_id)
-            
+
     context = {
         'platform_name': settings.PLATFORM_NAME,
     }
@@ -937,7 +935,7 @@ def create_account(request, post_override=None):
 
     d = {'name': post_vars['name'],
          'key': registration.activation_key,
-         }
+    }
 
     # composes activation email
     subject = render_to_string('emails/activation_email_subject.txt', d)

@@ -229,8 +229,10 @@ def send_mail_to_student(student, param_dict):
     if 'course' in param_dict:
         param_dict['course_name'] = param_dict['course'].display_name_with_default
 
-    param_dict['site_name'] = MicrositeConfiguration.get_microsite_configuration_value('SITE_NAME',
-        param_dict['site_name'])
+    param_dict['site_name'] = MicrositeConfiguration.get_microsite_configuration_value(
+        'SITE_NAME',
+        param_dict['site_name']
+    )
 
     subject = None
     message = None
@@ -239,10 +241,23 @@ def send_mail_to_student(student, param_dict):
     # activation email template definition available as configuration, if so, then render that
     message_type = param_dict['message']
 
-    email_template_dict = {'allowed_enroll': ('emails/enroll_email_allowedsubject.txt', 'emails/enroll_email_allowedmessage.txt'),
-       'enrolled_enroll': ('emails/enroll_email_enrolledsubject.txt', 'emails/enroll_email_enrolledmessage.txt'),
-       'allowed_unenroll': ('emails/unenroll_email_subject.txt', 'emails/unenroll_email_allowedmessage.txt'),
-       'enrolled_unenroll': ('emails/unenroll_email_subject.txt', 'emails/unenroll_email_enrolledmessage.txt')
+    email_template_dict = {
+        'allowed_enroll': (
+            'emails/enroll_email_allowedsubject.txt',
+            'emails/enroll_email_allowedmessage.txt'
+        ),
+        'enrolled_enroll': (
+            'emails/enroll_email_enrolledsubject.txt',
+            'emails/enroll_email_enrolledmessage.txt'
+        ),
+        'allowed_unenroll': (
+            'emails/unenroll_email_subject.txt',
+            'emails/unenroll_email_allowedmessage.txt'
+        ),
+        'enrolled_unenroll': (
+            'emails/unenroll_email_subject.txt',
+            'emails/unenroll_email_enrolledmessage.txt'
+        )
     }
 
     subject_template, message_template = email_template_dict.get(message_type, (None, None))

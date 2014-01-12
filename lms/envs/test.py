@@ -280,7 +280,7 @@ openid.oidutil.log = lambda message, level = 0: None
 
 # set up some testing for microsites
 MICROSITE_CONFIGURATION = {
-    "test_microsite" : {
+    "test_microsite": {
         "domain_prefix": "test_microsite",
         "university": "test_microsite",
         "platform_name": "Test Microsite",
@@ -289,7 +289,6 @@ MICROSITE_CONFIGURATION = {
         "payment_support_email": "test_microsite@edx.org",
         "ENABLE_MKTG_SITE":  False,
         "SITE_NAME": "test_microsite.localhost",
-        "show_only_org_on_student_dashboard": True,
         "course_org_filter": "TestMicrositeX",
         "course_about_show_social_links": False,
         "css_overrides_file": "test_microsite/css/test_microsite.css",

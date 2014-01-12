@@ -1069,7 +1069,7 @@ def enable_theme(theme_name):
 
 
 ############################### MICROSITES ################################
-def enable_microsites(microsite_config_dict, subdomain_branding, virtual_universities, microsites_root = ENV_ROOT / "microsites"):
+def enable_microsites(microsite_config_dict, subdomain_branding, virtual_universities, microsites_root=ENV_ROOT/"microsites"):
     """
     Enable the use of microsites, which are websites that allow
     for subdomains for the edX platform, e.g. foo.edx.org
@@ -1082,7 +1082,7 @@ def enable_microsites(microsite_config_dict, subdomain_branding, virtual_univers
 
     for microsite_name in microsite_config_dict.keys():
         # Calculate the location of the microsite's files
-        microsite_root =  microsites_root / microsite_name
+        microsite_root =  microsites_root/microsite_name
         microsite_config = microsite_config_dict[microsite_name]
 
         # pull in configuration information from each
@@ -1091,7 +1091,7 @@ def enable_microsites(microsite_config_dict, subdomain_branding, virtual_univers
         if os.path.isdir(microsite_root):
             # store the path on disk for later use
             microsite_config['microsite_root'] = microsite_root
-            
+
             # get the domain that this should reside
             domain = microsite_config['domain_prefix']
 
@@ -1157,4 +1157,3 @@ GRADES_DOWNLOAD = {
     'BUCKET': 'edx-grades',
     'ROOT_PATH': '/tmp/edx-s3/grades',
 }
-

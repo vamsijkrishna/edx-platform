@@ -1284,8 +1284,10 @@ def _do_enroll_students(course, course_id, students, overload=False, auto_enroll
         ceaset.delete()
 
     if email_students:
-        stripped_site_name = MicrositeConfiguration.get_microsite_configuration_value('SITE_NAME', 
-            settings.SITE_NAME)
+        stripped_site_name = MicrositeConfiguration.get_microsite_configuration_value(
+            'SITE_NAME',
+            settings.SITE_NAME
+        )
         registration_url = 'https://' + stripped_site_name + reverse('student.views.register_user')
         #Composition of email
         d = {'site_name': stripped_site_name,
@@ -1376,8 +1378,10 @@ def _do_unenroll_students(course_id, students, email_students=False):
     old_students, _ = get_and_clean_student_list(students)
     status = dict([x, 'unprocessed'] for x in old_students)
 
-    stripped_site_name = MicrositeConfiguration.get_microsite_configuration_value('SITE_NAME', 
-        settings.SITE_NAME)
+    stripped_site_name = MicrositeConfiguration.get_microsite_configuration_value(
+        'SITE_NAME',
+        settings.SITE_NAME
+    )
     if email_students:
         course = course_from_id(course_id)
         #Composition of email
@@ -1454,18 +1458,21 @@ def send_mail_to_student(student, param_dict):
     # add some helpers and microconfig subsitutions
     if 'course' in param_dict:
         param_dict['course_name'] = param_dict['course'].display_name_with_default
-    param_dict['site_name'] = MicrositeConfiguration.get_microsite_configuration_value('SITE_NAME',
-        param_dict.get('site_name', ''))
+    param_dict['site_name'] = MicrositeConfiguration.get_microsite_configuration_value(
+        'SITE_NAME',
+        param_dict.get('site_name', '')
+    )
 
     subject = None
     message = None
 
     message_type = param_dict['message']
 
-    email_template_dict = {'allowed_enroll': ('emails/enroll_email_allowedsubject.txt', 'emails/enroll_email_allowedmessage.txt'),
-       'enrolled_enroll': ('emails/enroll_email_enrolledsubject.txt', 'emails/enroll_email_enrolledmessage.txt'),
-       'allowed_unenroll': ('emails/unenroll_email_subject.txt', 'emails/unenroll_email_allowedmessage.txt'),
-       'enrolled_unenroll': ('emails/unenroll_email_subject.txt', 'emails/unenroll_email_enrolledmessage.txt')
+    email_template_dict = {
+        'allowed_enroll': ('emails/enroll_email_allowedsubject.txt', 'emails/enroll_email_allowedmessage.txt'),
+        'enrolled_enroll': ('emails/enroll_email_enrolledsubject.txt', 'emails/enroll_email_enrolledmessage.txt'),
+        'allowed_unenroll': ('emails/unenroll_email_subject.txt', 'emails/unenroll_email_allowedmessage.txt'),
+        'enrolled_unenroll': ('emails/unenroll_email_subject.txt', 'emails/unenroll_email_enrolledmessage.txt'),
     }
 
     subject_template, message_template = email_template_dict.get(message_type, (None, None))
@@ -1479,8 +1486,10 @@ def send_mail_to_student(student, param_dict):
 
         # Email subject *must not* contain newlines
         subject = ''.join(subject.splitlines())
-        from_address = MicrositeConfiguration.get_microsite_configuration_value('email_from_address',
-            settings.DEFAULT_FROM_EMAIL)
+        from_address = MicrositeConfiguration.get_microsite_configuration_value(
+            'email_from_address',
+            settings.DEFAULT_FROM_EMAIL
+        )
 
         send_mail(subject, message, from_address, [student], fail_silently=False)
 

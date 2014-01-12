@@ -54,7 +54,7 @@ def courses(request):
     profile page. Otherwise, it's the edX courseware.views.courses page
     """
     enable_mktg_site = settings.FEATURES.get('ENABLE_MKTG_SITE') or MicrositeConfiguration.get_microsite_configuration_value('ENABLE_MKTG_SITE', False)
-    
+
     if enable_mktg_site:
         return redirect(marketing_link('COURSES'), permanent=True)
 

@@ -14,6 +14,7 @@ from django.conf import settings
 _microsite_configuration_threadlocal = threading.local()
 _microsite_configuration_threadlocal.data = {}
 
+
 def has_microsite_configuration_set():
     """
     Returns whether the MICROSITE_CONFIGURATION has been set in the configuration files
@@ -31,8 +32,8 @@ class MicrositeConfiguration(object):
     def is_request_in_microsite(cls):
         """
         This will return if current request is a request within a microsite
-        """     
-        return cls.get_microsite_configuration() != None
+        """
+        return cls.get_microsite_configuration()
 
     @classmethod
     def get_microsite_configuration(cls):
@@ -71,7 +72,7 @@ class MicrositeConfiguration(object):
                 path = '{0}/templates/{1}'.format(
                     cls.get_microsite_configuration_value('microsite_name'),
                     relative_path
-                )                
+                )
                 return path
 
         return relative_path
@@ -84,7 +85,7 @@ class MicrositeConfiguration(object):
         """
         if not has_microsite_configuration_set():
             return default
-            
+
         for key in settings.MICROSITE_CONFIGURATION.keys():
             org_filter = settings.MICROSITE_CONFIGURATION[key].get('course_org_filter', None)
             if org_filter == org:

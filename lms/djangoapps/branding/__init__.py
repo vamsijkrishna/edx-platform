@@ -23,7 +23,7 @@ def get_visible_courses():
     # this is legacy format which is outside of the microsite feature
     if hasattr(settings, 'COURSE_LISTINGS') and subdomain in settings.COURSE_LISTINGS:
         filtered_visible_ids = frozenset(settings.COURSE_LISTINGS[subdomain])
-    
+
     filtered_by_org = MicrositeConfiguration.get_microsite_configuration_value('course_org_filter')
 
     if filtered_by_org:
@@ -54,8 +54,10 @@ def get_logo_url():
     # let's use that
     image_url = MicrositeConfiguration.get_microsite_configuration_value('logo_image_url')
     if image_url:
-        return '{static_url}{image_url}'.format(static_url=settings.STATIC_URL,
-            image_url=image_url)
+        return '{static_url}{image_url}'.format(
+            static_url=settings.STATIC_URL,
+            image_url=image_url
+        )
 
     # otherwise, use the legacy means to configure this
     university = MicrositeConfiguration.get_microsite_configuration_value('university')
