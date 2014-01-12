@@ -322,16 +322,27 @@ def dashboard(request):
 
     # for microsites, we want to filter and only show enrollments for courses within
     # the microsites 'ORG'
-
     course_org_filter = MicrositeConfiguration.get_microsite_configuration_value('course_org_filter')
-    show_only_org_on_student_dashboard = MicrositeConfiguration.get_microsite_configuration_value(
-        'show_only_org_on_student_dashboard')
+
+    # Let's filter out any courses in an "org" that has been declared to be
+    # in a Microsite
+    org_filter_out_set = MicrositeConfiguration.get_all_microsite_orgs()
+
+    # remove our current Microsite from the "filter out" list, if applicable
+    if course_org_filter:
+        org_filter_out_set.remove(course_org_filter)
 
     for enrollment in CourseEnrollment.enrollments_for_user(user):
         try:
             course = course_from_id(enrollment.course_id)
 
-            if course_org_filter and show_only_org_on_student_dashboard and course_org_filter != course.location.org:
+            # if we are in a Microsite, then filter out anything that is not
+            # attributed (by ORG) to that Microsite
+            if course_org_filter and course_org_filter != course.location.org:
+                continue
+            # Conversely, if we are not in a Microsite, then let's filter out any enrollments
+            # with courses attributed (by ORG) to Microsites
+            elif course.location.org in org_filter_out_set:
                 continue
 
             course_enrollment_pairs.append((course, enrollment))

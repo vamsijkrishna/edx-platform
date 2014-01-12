@@ -91,6 +91,23 @@ class MicrositeConfiguration(object):
                 return settings.MICROSITE_CONFIGURATION[key].get(val_name, default)
         return default
 
+    @classmethod
+    def get_all_microsite_orgs(cls):
+        """
+        This returns a set of orgs that are considered within a Microsite. This can be used,
+        for example, to do filtering
+        """
+        org_filter_set = []
+        if not has_microsite_configuration_set():
+            return org_filter_set
+
+        for key in settings.MICROSITE_CONFIGURATION:
+            org_filter = settings.MICROSITE_CONFIGURATION[key].get('course_org_filter')
+            if org_filter:
+                org_filter_set.append(org_filter)
+
+        return org_filter_set
+
     def clear_microsite_configuration(self):
         """
         Clears out any microsite configuration from the current request/thread
