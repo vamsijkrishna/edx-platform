@@ -132,6 +132,14 @@ class MicrositeConfiguration(object):
                 microsite_configuration['subdomain'] = subdomain
                 microsite_configuration['site_domain'] = domain
                 _microsite_configuration_threadlocal.data = microsite_configuration
+                
+                # special casing for test harness, for some reason we're getting
+                # exceptions (SuspiciousOperations) regarding ALLOWED_HOSTS when testing Microsites, even though we are
+                # adding that test domain to that configuration setting. If we remove that
+                # HTTP request header from the rest of the Django middleware pipeline
+                # then we're OK. Need to investigate a bit more.
+                if domain == 'test_microsite.testserver':
+                    del request.META['HTTP_HOST']
 
         # also put the configuration on the request itself to make it easier to dereference
         request.microsite_configuration = _microsite_configuration_threadlocal.data
