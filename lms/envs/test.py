@@ -280,27 +280,26 @@ openid.oidutil.log = lambda message, level = 0: None
 
 # set up some testing for microsites
 MICROSITE_CONFIGURATION = {
-    "openedx" : {
-        "domain_prefix":"openedx",
-        "university":"openedx",
-        "platform_name": "Open edX",
-        "logo_image_url": "openedx/images/header-logo.png",
-        "show_only_org_on_student_dashboard": True,
-        "email_from_address": "openedx@edx.org",
-        "payment_support_email": "openedx@edx.org",
+    "test_microsite" : {
+        "domain_prefix": "test_microsite",
+        "university": "test_microsite",
+        "platform_name": "Test Microsite",
+        "logo_image_url": "test_microsite/images/header-logo.png",
+        "email_from_address": "test_microsite@edx.org",
+        "payment_support_email": "test_microsite@edx.org",
         "ENABLE_MKTG_SITE":  False,
-        "SITE_NAME": "openedx.localhost",
-        "course_org_filter": "CDX",
+        "SITE_NAME": "test_microsite.localhost",
         "show_only_org_on_student_dashboard": True,
+        "course_org_filter": "TestMicrositeX",
         "course_about_show_social_links": False,
-        "css_overrides_file": "openedx/css/openedx.css",
+        "css_overrides_file": "test_microsite/css/test_microsite.css",
         "show_partners": False,
         "show_homepage_promo_video": False,
-        "course_index_overlay_text": "Explore free courses from leading universities.",
-        "course_index_overlay_logo_file": "openedx/images/header-logo.png",
-        "homepage_overlay_html": "<h1>Take an Open edX Course</h1>"
+        "course_index_overlay_text": "This is a Test Microsite Overlay Text.",
+        "course_index_overlay_logo_file": "test_microsite/images/header-logo.png",
+        "homepage_overlay_html": "<h1>This is a Test Microsite Overlay HTML</h1>"
     }
 }
 
 if len(MICROSITE_CONFIGURATION.keys()) > 0:
-    enable_microsites(MICROSITE_CONFIGURATION, SUBDOMAIN_BRANDING, VIRTUAL_UNIVERSITIES, microsites_root = ENV_ROOT / 'edx-platform' / 'test_root' / 'microsites')
+    enable_microsites(MICROSITE_CONFIGURATION, SUBDOMAIN_BRANDING, VIRTUAL_UNIVERSITIES, microsites_root = ENV_ROOT / 'edx-platform' / 'test_microsites')
