@@ -202,9 +202,9 @@ def get_module_for_descriptor(user, request, descriptor, field_data_cache, cours
         # locators are not checked in has_access(user, descriptor), so we
         # use has_access(user, course) which does it.
         from courseware.courses import get_course_with_access
-        course = get_course_with_access(request.user, course_id, 'load', depth=2)
-        staff_access = has_access(request.user, course, 'staff')
-        setup_masquerade(request, staff_access)
+        course = get_course_with_access(user, course_id, 'load', depth=2)
+        if has_access(user, course, 'staff'):
+            setup_masquerade(request, True)
 
     track_function = make_track_function(request)
     xqueue_callback_url_prefix = get_xqueue_callback_url_prefix(request)
