@@ -183,17 +183,18 @@ class CertificateStatusReport(Report):
             else:
                 dollars_refunded = CertificateItem.verified_certificates_monetary_field_sum(course_id, 'refunded', 'unit_cost')
 
-            course_reg_start_date = "TODO"
-            course_reg_close_date = "TODO"
-            registration_period = "TODO"
+            course_announce_date = ""
+            course_reg_start_date = ""
+            course_reg_close_date = ""
+            registration_period = ""
 
             yield [
                 university,
                 course,
-                "N/A",
-                course_reg_start_date,
-                course_reg_close_date,
-                registration_period,
+                "",
+                "",
+                "",
+                "",
                 total_enrolled,
                 audit_enrolled,
                 honor_enrolled,
