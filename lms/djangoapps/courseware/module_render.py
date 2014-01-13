@@ -195,6 +195,16 @@ def get_module_for_descriptor(user, request, descriptor, field_data_cache, cours
     # allow course staff to masquerade as student
     if has_access(user, descriptor, 'staff', course_id):
         setup_masquerade(request, True)
+    else:
+        # this can be already masquaraded stuff member,
+        # and has_access(user, descriptor) can't recognize that,
+        # because correct group to access is build using locator not locations.
+        # locators are not checked in has_access(user, descriptor), so we
+        # use has_access(user, course) which does it.
+        from courseware.courses import get_course_with_access
+        course = get_course_with_access(request.user, course_id, 'load', depth=2)
+        staff_access = has_access(request.user, course, 'staff')
+        setup_masquerade(request, staff_access)
 
     track_function = make_track_function(request)
     xqueue_callback_url_prefix = get_xqueue_callback_url_prefix(request)
@@ -531,11 +541,6 @@ def handle_xblock_callback(request, course_id, usage_id, handler, suffix=None):
     """
     if not request.user.is_authenticated():
         raise PermissionDenied
-
-    from courseware.courses import get_course_with_access
-    course = get_course_with_access(request.user, course_id, 'load', depth=2)
-    staff_access = has_access(request.user, course, 'staff')
-    setup_masquerade(request, staff_access)
 
     return _invoke_xblock_handler(request, course_id, usage_id, handler, suffix, request.user)
 
