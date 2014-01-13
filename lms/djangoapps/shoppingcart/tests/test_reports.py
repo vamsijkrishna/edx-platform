@@ -134,7 +134,7 @@ class ReportTypeTests(ModuleStoreTestCase):
 
         self.CORRECT_UNI_REVENUE_SHARE_CSV = dedent("""
             University,Course,Number of Transactions,Total Payments Collected,Service Fees (if any),Number of Successful Refunds,Total Amount of Refunds
-            MITx,999 Robot Super Course,0,80.00,0.00,2,80.00
+            MITx,999 Robot Super Course,6,80.00,0.00,2,80.00
             """.format(time_str=str(self.test_time)))
 
     def test_refund_report_rows(self):
