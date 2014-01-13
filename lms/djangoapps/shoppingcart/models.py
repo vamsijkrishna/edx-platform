@@ -172,8 +172,10 @@ class Order(models.Model):
             }
         )
         try:
-            from_address = MicrositeConfiguration.get_microsite_configuration_value('email_from_address',
-                settings.DEFAULT_FROM_EMAIL)
+            from_address = MicrositeConfiguration.get_microsite_configuration_value(
+                'email_from_address',
+                settings.DEFAULT_FROM_EMAIL
+            )
 
             send_mail(subject, message,
                       from_address, [self.user.email])  # pylint: disable=E1101

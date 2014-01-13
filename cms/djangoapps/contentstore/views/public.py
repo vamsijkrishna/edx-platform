@@ -31,7 +31,8 @@ def login_page(request):
     Display the login form.
     """
     csrf_token = csrf(request)['csrf_token']
-    return render_to_response('login.html',
+    return render_to_response(
+        'login.html',
         {
             'csrf': csrf_token,
             'forgot_password_link': "//{base}/login#forgot-password-modal".format(base=settings.LMS_BASE),

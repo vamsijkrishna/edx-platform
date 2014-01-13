@@ -133,7 +133,7 @@ class MicrositeConfiguration(object):
                 microsite_configuration['subdomain'] = subdomain
                 microsite_configuration['site_domain'] = domain
                 _microsite_configuration_threadlocal.data = microsite_configuration
-                
+
                 # special casing for test harness, for some reason we're getting
                 # exceptions (SuspiciousOperations) regarding ALLOWED_HOSTS when testing Microsites, even though we are
                 # adding that test domain to that configuration setting. If we remove that

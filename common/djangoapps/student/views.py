@@ -275,7 +275,10 @@ def register_user(request, extra_context=None):
     context = {
         'course_id': request.GET.get('course_id'),
         'enrollment_action': request.GET.get('enrollment_action'),
-        'platform_name': MicrositeConfiguration.get_microsite_configuration_value('platform_name',settings.PLATFORM_NAME),
+        'platform_name': MicrositeConfiguration.get_microsite_configuration_value(
+            'platform_name',
+            settings.PLATFORM_NAME
+        ),
     }
     if extra_context is not None:
         context.update(extra_context)
@@ -933,8 +936,9 @@ def create_account(request, post_override=None):
         return ret
     (user, profile, registration) = ret
 
-    d = {'name': post_vars['name'],
-         'key': registration.activation_key,
+    d = {
+        'name': post_vars['name'],
+        'key': registration.activation_key,
     }
 
     # composes activation email
@@ -945,8 +949,10 @@ def create_account(request, post_override=None):
 
     # don't send email if we are doing load testing or random user generation for some reason
     if not (settings.FEATURES.get('AUTOMATIC_AUTH_FOR_TESTING')):
-        from_address = MicrositeConfiguration.get_microsite_configuration_value('email_from_address',
-            settings.DEFAULT_FROM_EMAIL)
+        from_address = MicrositeConfiguration.get_microsite_configuration_value(
+            'email_from_address',
+            settings.DEFAULT_FROM_EMAIL
+        )
         try:
             if settings.FEATURES.get('REROUTE_ACTIVATION_EMAIL'):
                 dest_addr = settings.FEATURES['REROUTE_ACTIVATION_EMAIL']
@@ -1207,9 +1213,11 @@ def change_email_request(request):
         return HttpResponse(json.dumps({'success': False,
                                         'error': _('Old email is the same as the new email.')}))
 
-    d = {'key': pec.activation_key,
-         'old_email': user.email,
-         'new_email': pec.new_email}
+    d = {
+        'key': pec.activation_key,
+        'old_email': user.email,
+        'new_email': pec.new_email
+    }
 
     subject = render_to_string('emails/email_change_subject.txt', d)
     subject = ''.join(subject.splitlines())

@@ -271,8 +271,10 @@ def send_mail_to_student(student, param_dict):
 
         # Email subject *must not* contain newlines
         subject = ''.join(subject.splitlines())
-        from_address = MicrositeConfiguration.get_microsite_configuration_value('email_from_address',
-            settings.DEFAULT_FROM_EMAIL)
+        from_address = MicrositeConfiguration.get_microsite_configuration_value(
+            'email_from_address',
+            settings.DEFAULT_FROM_EMAIL
+        )
 
         send_mail(subject, message, from_address, [student], fail_silently=False)
 
